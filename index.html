@@ -52,6 +52,12 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
 .row .arrow{color:var(--muted)}
 @media(min-width:680px){main{padding-top:36px}.hero{position:relative}.cta{width:max-content;min-width:248px}.links{grid-template-columns:1fr 1fr}}
 @media(max-width:360px){main{padding-inline:14px}.brand img{width:150px}}
+.pix-card{border:1px solid var(--line);border-radius:13px;background:#fff;padding:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;justify-content:space-between}
+.pix-key{display:block;border:0;background:transparent;color:var(--navy);font:inherit;padding:0;width:19ch;max-width:100%}
+.pix-label,.pix-status{font-size:.84rem;color:var(--muted)}
+.pix-status{margin:6px 4px 0}
+.pix-copy{border:0;border-radius:9px;background:var(--red);color:white;padding:9px 13px;font:inherit;font-weight:700;cursor:pointer}
+.pix-copy:focus-visible{outline:3px solid #3b88dc;outline-offset:3px}
 </style>
 </head>
 <body>
@@ -108,6 +114,17 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
       </a>
     </div>
   </section>
+  <section aria-labelledby="pix">
+    <h2 id="pix">Pagamento via Pix</h2>
+    <div class="pix-card">
+      <div>
+        <label class="pix-label" for="pix-key">Chave Pix (CNPJ)</label>
+        <input id="pix-key" class="pix-key" value="09.499.759/0001-35" readonly>
+      </div>
+      <button type="button" class="pix-copy" hidden>Copiar chave Pix</button>
+    </div>
+    <p class="pix-status" role="status"></p>
+  </section>
 </main>
 <script>
   const mensagens = {"geral": "Olá, quero fazer um pedido", "gas": "Olá! Gostaria de pedir gás de cozinha.", "agua": "Olá! Gostaria de pedir água mineral."};
@@ -146,6 +163,22 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
     }
   });
   copiar.hidden = false;
+
+  const chavePix = document.querySelector('#pix-key');
+  const copiarPix = document.querySelector('.pix-copy');
+  const avisoPix = document.querySelector('.pix-status');
+  copiarPix.addEventListener('click', async () => {
+    const numeros = chavePix.value.replace(/\D/g, '');
+    try {
+      await navigator.clipboard.writeText(numeros);
+      avisoPix.textContent = 'Chave Pix copiada.';
+    } catch {
+      chavePix.focus();
+      chavePix.select();
+      avisoPix.textContent = 'Copie a chave Pix selecionada.';
+    }
+  });
+  copiarPix.hidden = false;
 </script>
 </body>
 </html>
