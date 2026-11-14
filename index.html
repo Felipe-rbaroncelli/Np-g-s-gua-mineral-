@@ -33,6 +33,9 @@ a:focus-visible{outline:3px solid #3b88dc;outline-offset:4px}
 .choices label:has(input:checked){background:#ffffff25;border-color:#fff}
 .order-buttons .cta{flex:1 1 215px;min-width:0;width:auto}
 .order-buttons small{display:block;font-size:.8rem;font-weight:550}
+.copy-order{display:block;margin-top:10px;background:none;border:0;padding:6px 0;color:white;text-decoration:underline;font:inherit;font-size:.85rem;cursor:pointer}
+.copy-order[hidden],.copy-fallback[hidden]{display:none}
+.copy-fallback{width:100%;padding:8px;border-radius:6px}
 .cta:hover{background:#a70d1a}
 .icon{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .arrow{margin-left:auto;font-size:1.15rem;flex:none}
@@ -76,15 +79,18 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
       </div>
     </fieldset>
     <div class="order-buttons">
-      <a class="cta" data-whatsapp="5535988207047" href="https://wa.me/5535988207047?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido">
+      <a class="cta" data-whatsapp="5535988207047" href="https://api.whatsapp.com/send?phone=5535988207047&amp;text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido">
         <span>Pedir pelo WhatsApp 1<small>(35) 98820-7047</small></span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
-      <a class="cta" data-whatsapp="553532237171" href="https://wa.me/553532237171?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido">
+      <a class="cta" data-whatsapp="553532237171" href="https://api.whatsapp.com/send?phone=553532237171&amp;text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido">
         <span>Pedir pelo WhatsApp 2<small>(35) 3223-7171</small></span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
     </div>
+    <button type="button" class="copy-order" hidden>Copiar mensagem do pedido</button>
+    <span class="copy-status" role="status"></span>
+    <input class="copy-fallback" aria-label="Mensagem do pedido para copiar" readonly hidden>
   </div>
 
   <section aria-labelledby="contato">
@@ -112,7 +118,7 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
     const tipo = tipos.querySelector('input:checked').value;
     const mensagem = encodeURIComponent(mensagens[tipo]);
     for (const botao of botoes) {
-      botao.href = `https://wa.me/${botao.dataset.whatsapp}?text=${mensagem}`;
+      botao.href = `https://api.whatsapp.com/send?phone=${botao.dataset.whatsapp}&text=${mensagem}`;
     }
   }
 
@@ -120,6 +126,26 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
   window.addEventListener('pageshow', atualizarLinks);
   atualizarLinks();
   tipos.hidden = false;
+
+  const copiar = document.querySelector('.copy-order');
+  const status = document.querySelector('.copy-status');
+  const campo = document.querySelector('.copy-fallback');
+  copiar.addEventListener('click', async () => {
+    const mensagem = mensagens[tipos.querySelector('input:checked').value];
+    campo.hidden = true;
+    status.textContent = '';
+    try {
+      await navigator.clipboard.writeText(mensagem);
+      status.textContent = 'Mensagem copiada.';
+    } catch {
+      campo.value = mensagem;
+      campo.hidden = false;
+      campo.focus();
+      campo.select();
+      status.textContent = 'Copie a mensagem selecionada.';
+    }
+  });
+  copiar.hidden = false;
 </script>
 </body>
 </html>
