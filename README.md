@@ -1,0 +1,1 @@
+# Np-g-s-gua-mineral-
