@@ -25,6 +25,14 @@ a{color:inherit;text-decoration:none}
 a:focus-visible{outline:3px solid #3b88dc;outline-offset:4px}
 .cta,.row{display:flex;align-items:center;gap:12px}
 .cta{background:var(--red);color:#fff;padding:13px 15px;border-radius:12px;font-weight:750;min-height:54px}
+.order-types{border:0;padding:0;margin:0 0 13px}
+.order-types legend{margin-bottom:7px;font-weight:700;font-size:.9rem}
+.choices,.order-buttons{display:flex;flex-wrap:wrap;gap:8px}
+.choices label{display:flex;align-items:center;gap:6px;padding:7px 9px;border:1px solid #ffffff50;border-radius:9px;cursor:pointer;font-size:.85rem}
+.choices input{margin:0;accent-color:#e33c4d}
+.choices label:has(input:checked){background:#ffffff25;border-color:#fff}
+.order-buttons .cta{flex:1 1 215px;min-width:0;width:auto}
+.order-buttons small{display:block;font-size:.8rem;font-weight:550}
 .cta:hover{background:#a70d1a}
 .icon{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .arrow{margin-left:auto;font-size:1.15rem;flex:none}
@@ -39,7 +47,7 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
 .row strong{font-size:.94rem}
 .row small{color:var(--muted);font-size:.81rem}
 .row .arrow{color:var(--muted)}
-@media(min-width:680px){main{padding-top:36px}.hero{position:relative}.cta{width:max-content;min-width:248px}.links{grid-template-columns:1fr 1fr}.links .row:last-child{grid-column:1/-1}}
+@media(min-width:680px){main{padding-top:36px}.hero{position:relative}.cta{width:max-content;min-width:248px}.links{grid-template-columns:1fr 1fr}}
 @media(max-width:360px){main{padding-inline:14px}.brand img{width:150px}}
 </style>
 </head>
@@ -54,29 +62,37 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
 
   <div class="hero">
     <h1>NP Gás e Água Mineral</h1>
-    <p>Faça seu pedido pela loja online ou fale com a equipe pelo WhatsApp.</p>
+    <p>Escolha o que precisa e faça seu pedido pelo WhatsApp.</p>
     <div class="products">
       <span class="product"><img src="data:image/jpeg;base64,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" width="32" height="32" alt="">Gás de cozinha</span>
       <span class="product"><img src="data:image/jpeg;base64,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" width="32" height="32" alt="">Água mineral</span>
     </div>
-    <a class="cta" href="https://www.npgaseagua.com.br/">
-      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l2.4 12h11.8l2.3-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
-      Fazer pedido online <span class="arrow" aria-hidden="true">↗</span>
-    </a>
+    <fieldset class="order-types" hidden>
+      <legend>O que você quer pedir?</legend>
+      <div class="choices">
+        <label><input type="radio" name="tipo" value="geral" checked> Pedido geral</label>
+        <label><input type="radio" name="tipo" value="gas"> Gás</label>
+        <label><input type="radio" name="tipo" value="agua"> Água mineral</label>
+      </div>
+    </fieldset>
+    <div class="order-buttons">
+      <a class="cta" data-whatsapp="5535988207047" href="https://wa.me/5535988207047?text=Ol%C3%A1%21%20Quero%20fazer%20um%20pedido.">
+        <span>Pedir pelo WhatsApp 1<small>(35) 98820-7047</small></span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="cta" data-whatsapp="553532237171" href="https://wa.me/553532237171?text=Ol%C3%A1%21%20Quero%20fazer%20um%20pedido.">
+        <span>Pedir pelo WhatsApp 2<small>(35) 3223-7171</small></span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
   </div>
 
-  <!-- Edite os números nos links e no texto visível ao atualizar contatos. -->
   <section aria-labelledby="contato">
     <h2 id="contato">Contato e redes sociais</h2>
     <div class="links">
-      <a class="row" href="https://wa.me/5535988207047">
-        <span class="tile"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.5 7.5L4 20.5l1.1-4A8.5 8.5 0 1 1 20.5 11.8Z"/><path d="M9 8c-1 0-1.5.9-1 2.1a9 9 0 0 0 5.9 5.3c1.2.3 2-.5 2-1.3l-2.2-1.2-.8.8a6 6 0 0 1-2.9-2.8l.7-.8L9.8 8Z"/></svg></span>
-        <span><strong>WhatsApp</strong><small>(35) 98820-7047</small></span>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-      <a class="row" href="https://wa.me/553532237171">
-        <span class="tile"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.5 7.5L4 20.5l1.1-4A8.5 8.5 0 1 1 20.5 11.8Z"/><path d="M9 8c-1 0-1.5.9-1 2.1a9 9 0 0 0 5.9 5.3c1.2.3 2-.5 2-1.3l-2.2-1.2-.8.8a6 6 0 0 1-2.9-2.8l.7-.8L9.8 8Z"/></svg></span>
-        <span><strong>WhatsApp alternativo</strong><small>(35) 3223-7171</small></span>
+      <a class="row" href="https://www.npgaseagua.com.br/">
+        <span class="tile"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l2.4 12h11.8l2.3-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></span>
+        <span><strong>Loja online</strong><small>npgaseagua.com.br</small></span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
       <a class="row" href="https://www.instagram.com/np.gas/">
@@ -87,5 +103,23 @@ h2{margin:0 0 10px 4px;font-size:1.08rem;letter-spacing:-.017em}
     </div>
   </section>
 </main>
+<script>
+  const mensagens = {"geral": "Olá! Quero fazer um pedido.", "gas": "Olá! Gostaria de pedir gás de cozinha.", "agua": "Olá! Gostaria de pedir água mineral."};
+  const tipos = document.querySelector('.order-types');
+  const botoes = document.querySelectorAll('[data-whatsapp]');
+
+  function atualizarLinks() {
+    const tipo = tipos.querySelector('input:checked').value;
+    const mensagem = encodeURIComponent(mensagens[tipo]);
+    for (const botao of botoes) {
+      botao.href = `https://wa.me/${botao.dataset.whatsapp}?text=${mensagem}`;
+    }
+  }
+
+  tipos.addEventListener('change', atualizarLinks);
+  window.addEventListener('pageshow', atualizarLinks);
+  atualizarLinks();
+  tipos.hidden = false;
+</script>
 </body>
 </html>
