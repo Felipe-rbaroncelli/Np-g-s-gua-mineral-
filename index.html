@@ -58,9 +58,6 @@ dialog{border:0;border-radius:20px;width:min(440px,calc(100% - 28px));padding:24
 <p class="message" id="order-message">Olá, quero fazer um pedido</p>
 <a class="chat" data-phone="5535988207047" href="https://api.whatsapp.com/send?phone=5535988207047&amp;text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.5 7.5L4 20.5l1.1-4A8.5 8.5 0 1 1 20.5 11.8Z"/><path d="M9 8c-1 0-1.5.9-1 2.1a9 9 0 0 0 5.9 5.3c1.2.3 2-.5 2-1.3l-2.2-1.2-.8.8a6 6 0 0 1-2.9-2.8l.7-.8L9.8 8Z"/></svg><span>WhatsApp 1<small>(35) 98820-7047</small></span><span class="arrow" aria-hidden="true">↗</span></a>
 <a class="chat" data-phone="553532237171" href="https://api.whatsapp.com/send?phone=553532237171&amp;text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.8a8.5 8.5 0 0 1-12.5 7.5L4 20.5l1.1-4A8.5 8.5 0 1 1 20.5 11.8Z"/><path d="M9 8c-1 0-1.5.9-1 2.1a9 9 0 0 0 5.9 5.3c1.2.3 2-.5 2-1.3l-2.2-1.2-.8.8a6 6 0 0 1-2.9-2.8l.7-.8L9.8 8Z"/></svg><span>WhatsApp 2<small>(35) 3223-7171</small></span><span class="arrow" aria-hidden="true">↗</span></a>
-<button type="button" class="copy-message">Copiar mensagem</button>
-<p class="status" id="message-status" role="status"></p>
-<input class="manual" aria-label="Mensagem para copiar" readonly hidden>
 </dialog>
 <script>
 const messages = {
@@ -70,16 +67,12 @@ const messages = {
 };
 const dialog = document.querySelector('#order-dialog');
 const message = document.querySelector('#order-message');
-const manual = document.querySelector('.manual');
-const messageStatus = document.querySelector('#message-status');
 const whatsappLinks = document.querySelectorAll('[data-phone]');
 if (typeof dialog.showModal === 'function') {
   document.querySelectorAll('[data-order]').forEach(link => {
     link.addEventListener('click', event => {
       event.preventDefault();
       message.textContent = messages[link.dataset.order];
-      messageStatus.textContent = '';
-      manual.hidden = true;
       whatsappLinks.forEach(chat => {
         chat.href = 'https://api.whatsapp.com/send?phone=' + chat.dataset.phone + '&text=' + encodeURIComponent(message.textContent);
       });
@@ -105,9 +98,6 @@ async function copyText(text, status, fallback) {
     status.textContent = 'Toque e segure no texto selecionado para copiar.';
   }
 }
-document.querySelector('.copy-message').addEventListener('click', () => {
-  copyText(message.textContent, messageStatus, manual);
-});
 const pixKey = document.querySelector('#pix-key');
 const copyPix = document.querySelector('#copy-pix');
 copyPix.hidden = false;
